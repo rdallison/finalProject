@@ -1,6 +1,7 @@
 /* Global Variables */
 const baseURL = 'http://api.geonames.org/searchJSON?q=';
 const userName = 'rayshawndallison';
+document.getElementById('returnDate').setAttribute('minDate',`2020-11-11`);
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -20,13 +21,24 @@ document.getElementById('generate').addEventListener('click', () => {
         .then(data => {
             const pixurl = 'https://pixabay.com/api/?';
             const pixapi = '19211440-fc37a8ac17131a95f2289b0de';
-            getPic(pixurl, pixapi, "London")
+            getPic(pixurl, pixapi, data.data[0].city_name)
             .then(data => {
-              console.log(data.hits[0].largeImageURL)  
               const pic = document.createElement('img');
               pic.src = data.hits[0].largeImageURL;
               pic.alt = data.hits[0].tags;
-              document.getElementById('travelDate').appendChild(pic);
+              document.getElementById('app').appendChild(pic);
+              let returnDate = document.getElementById('returnDate').value.split('-');
+              returnDate.minDate = '0';
+            let returnMonth = returnDate[1];
+            let returnYear = returnDate[0];
+            let returnDay = returnDate[2];
+
+            let tripLength = document.createElement('p');
+            let tripLengthDiv = document.createElement('div');
+            tripLength.innerText = `You will be gone for Years: ${returnYear - travelYear} Months: ${returnMonth - travelMonth} Days: ${returnDay - travelDay}`
+            tripLength.style.display = 'inline-block';
+            document.getElementById('title').appendChild(tripLengthDiv);
+            tripLengthDiv.appendChild(tripLength);
             })
 
             
@@ -45,7 +57,7 @@ const getPic = async (url, apiKey, city) => {
     const response = await fetch(wholeURL);
     try{
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         return data;
 
     }catch(err){
@@ -61,7 +73,7 @@ const getCoordinates = async (baseURL, userName, city) => {
     const response = await fetch(wholeURL);
     try{
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         return data;
 
     }catch(err){
@@ -75,7 +87,7 @@ const getWeather = async (url, apiKey, long, lat, city) => {
     const response = await fetch(wholeURL);
     try{
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         return data;
 
     }catch(err){
