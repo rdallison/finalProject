@@ -8,8 +8,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 new MiniCssExtractPlugin({ filename: "[styles].css" })
 
 
-
-
 module.exports = {
     mode: 'production',
     entry: './src/client/index.js',
@@ -32,7 +30,8 @@ module.exports = {
     },
     plugins : [
         new htmlWebpackPlugin({
-            
+          template: "./src/client/views/index.html",
+          filename: "./index.html",
         }),
         new WorkboxPlugin.GenerateSW({
             // Do not precache images
