@@ -1,1 +1,176 @@
-var Client;Client=(()=>{var e={346:()=>{document.getElementById("returnDate").setAttribute("minDate","2020-11-11");new Date;document.getElementById("generate").addEventListener("click",()=>{let a=document.getElementById("city").value;t("http://api.geonames.org/searchJSON?q=","rayshawndallison",a).then(t=>{let a=document.getElementById("travelDate").value.split("-"),o=a[1],r=a[0],c=a[2];n("http://api.weatherbit.io/v2.0/current?","7d92255b96864307aa9e94562d3cd52e",t.geonames[0].lng,t.geonames[0].lat,t.geonames[0].name).then(t=>{e("https://pixabay.com/api/?","19211440-fc37a8ac17131a95f2289b0de",t.data[0].city_name).then(e=>{const t=document.createElement("img");t.src=e.hits[0].largeImageURL,t.alt=e.hits[0].tags,document.getElementById("app").appendChild(t);let n=document.getElementById("returnDate").value.split("-");n.minDate="0";let a=n[1],l=n[0],i=n[2],s=document.createElement("p"),d=document.createElement("div");s.innerText=`You will be gone for Years: ${l-r} Months: ${a-o} Days: ${i-c}`,s.style.display="inline-block",document.getElementById("title").appendChild(d),d.appendChild(s)})})})});const e=async(e,t,n)=>{const a=`${e}key=${t}&q=${encodeURIComponent(n)}&image_type=photo`,o=await fetch(a);try{return await o.json()}catch(e){console.log("We have encountered this error: "+e)}},t=async(e,t,n)=>{const a=`${e}${n}&username=${t}`,o=await fetch(a);try{return await o.json()}catch(e){console.log("We have encountered this error: "+e)}},n=async(e,t,n,a,o)=>{const r=`${e}lat=${a}&lon=${n}&key=${t}`,c=await fetch(r);try{return await c.json()}catch(e){console.log("We have encountered this error: "+e)}}}},t={};return function n(a){if(t[a])return t[a].exports;var o=t[a]={exports:{}};return e[a](o,o.exports,n),o.exports}(346)})();
+var Client;Client =
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/client/index.js":
+/*!*****************************!*\
+  !*** ./src/client/index.js ***!
+  \*****************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements:  */
+/***/ (() => {
+
+
+
+
+/* Global Variables */
+const baseURL = 'http://api.geonames.org/searchJSON?q=';
+const userName = 'rayshawndallison';
+document.getElementById('returnDate').setAttribute('minDate',`2020-11-11`);
+
+// Create a new date instance dynamically with JS
+let d = new Date();
+
+
+document.getElementById('generate').addEventListener('click', () => {
+    let city = document.getElementById('city').value;
+    getCoordinates(baseURL, userName, city)
+    .then(data => {
+        let travelDate = document.getElementById('travelDate').value.split('-');
+        let travelMonth = travelDate[1];
+        let travelYear = travelDate[0];
+        let travelDay = travelDate[2];
+        const weatherBiturl = 'http://api.weatherbit.io/v2.0/current?';
+        const weatherBitapi = '7d92255b96864307aa9e94562d3cd52e';
+        getWeather(weatherBiturl, weatherBitapi, data.geonames[0].lng, data.geonames[0].lat, data.geonames[0].name)
+        .then(data => {
+            console.log(data);
+            const weather = data.data[0].temp;
+            const weatherString = `It is currently ${weather} celcius in ${data.data[0].city_name}`;
+            const weatherP = document.createElement('p').innerText = weatherString;
+            document.getElementById('title').append(weatherP);
+            const pixurl = 'https://pixabay.com/api/?';
+            const pixapi = '19211440-fc37a8ac17131a95f2289b0de';
+            getPic(pixurl, pixapi, data.data[0].city_name)
+            .then(data => {
+              const pic = document.createElement('img');
+              pic.src = data.hits[0].largeImageURL;
+              pic.alt = data.hits[0].tags;
+              document.getElementById('app').appendChild(pic);
+              let returnDate = document.getElementById('returnDate').value.split('-');
+              returnDate.minDate = '0';
+            let returnMonth = returnDate[1];
+            let returnYear = returnDate[0];
+            let returnDay = returnDate[2];
+
+            let tripLength = document.createElement('p');
+            let tripLengthDiv = document.createElement('div');
+            tripLength.innerText = `You will be gone for Years: ${returnYear - travelYear} Months: ${returnMonth - travelMonth} Days: ${returnDay - travelDay}`
+            tripLength.style.display = 'inline-block';
+            document.getElementById('title').appendChild(tripLengthDiv);
+            tripLengthDiv.appendChild(tripLength);
+            })
+
+            
+        })
+        
+        //postWeather('', {temp: data.main.temp, date: newDate, feelings: feel});
+        
+    })
+    
+});
+
+
+const getPic = async (url, apiKey, city) => {
+
+    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&image_type=photo`;
+    const response = await fetch(wholeURL);
+    try{
+        const data = await response.json();
+        //console.log(data);
+        return data;
+
+    }catch(err){
+        console.log(`We have encountered this error: ${err}`);
+    }
+}
+
+
+
+const getCoordinates = async (baseURL, userName, city) => {
+
+    const wholeURL = `${baseURL}${city}&username=${userName}`;
+    const response = await fetch(wholeURL);
+    try{
+        const data = await response.json();
+        //console.log(data);
+        return data;
+
+    }catch(err){
+        console.log(`We have encountered this error: ${err}`);
+    }
+}
+
+const getWeather = async (url, apiKey, long, lat, city) => {
+
+    const wholeURL = `${url}lat=${lat}&lon=${long}&key=${apiKey}`;
+    const response = await fetch(wholeURL);
+    try{
+        const data = await response.json();
+        //console.log(data);
+        return data;
+
+    }catch(err){
+        console.log(`We have encountered this error: ${err}`);
+    }
+}
+
+
+
+const postWeather = async (url = '', data = {}) => {
+    
+
+
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    try{
+        newData = await response.json();
+        console.log(newData);
+        return newData;
+        }catch(error){
+            console.log(`we have encountered this error: ${error}`);
+
+        }
+}
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	// module exports must be returned from runtime so entry inlining is disabled
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__("./src/client/index.js");
+/******/ })()
+;
+//# sourceMappingURL=main.js.map

@@ -1,4 +1,6 @@
 
+
+
 /* Global Variables */
 const baseURL = 'http://api.geonames.org/searchJSON?q=';
 const userName = 'rayshawndallison';
@@ -20,6 +22,12 @@ document.getElementById('generate').addEventListener('click', () => {
         const weatherBitapi = '7d92255b96864307aa9e94562d3cd52e';
         getWeather(weatherBiturl, weatherBitapi, data.geonames[0].lng, data.geonames[0].lat, data.geonames[0].name)
         .then(data => {
+            console.log(data);
+            const weather = data.data[0].temp;
+            const weatherString = `
+            It is currently ${weather} celcius in ${data.data[0].city_name}`;
+            const weatherP = document.createElement('p').innerText = weatherString;
+            document.getElementById('title').append(weatherP);
             const pixurl = 'https://pixabay.com/api/?';
             const pixapi = '19211440-fc37a8ac17131a95f2289b0de';
             getPic(pixurl, pixapi, data.data[0].city_name)
