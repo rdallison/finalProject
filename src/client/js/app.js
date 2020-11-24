@@ -27,7 +27,6 @@ export const gen = () => {document.getElementById('generate').addEventListener('
         const weatherBitapi = '7d92255b96864307aa9e94562d3cd52e';
         getWeather(weatherBiturl, weatherBitapi, data.geonames[0].lng, data.geonames[0].lat, data.geonames[0].name)
         .then(data => {
-            console.log(data);
             const weather = data.data[0].temp;
             const weatherString = `
             It is currently ${weather} celcius in ${data.data[0].city_name}`;
@@ -37,8 +36,9 @@ export const gen = () => {document.getElementById('generate').addEventListener('
             const pixapi = '19211440-fc37a8ac17131a95f2289b0de';
             getPic(pixurl, pixapi, data.data[0].city_name)
             .then(data => {
+               
               const pic = document.createElement('img');
-              pic.src = data.hits[0].largeImageURL;
+              pic.src = data.hits[0].webformatURL;
               pic.alt = data.hits[0].tags;
               document.getElementById('app').appendChild(pic);
               let returnDate = document.getElementById('returnDate').value.split('-');
@@ -67,7 +67,7 @@ export const gen = () => {document.getElementById('generate').addEventListener('
 
 const getPic = async (url, apiKey, city) => {
 
-    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&image_type=photo&category=travel`;
+    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&category=travel`;
     const response = await fetch(wholeURL);
     try{
         const data = await response.json();
