@@ -12,7 +12,6 @@ var Client;Client =
 
 
 
-
 /* Global Variables */
 const baseURL = 'http://api.geonames.org/searchJSON?q=';
 const userName = 'rayshawndallison';
@@ -74,7 +73,7 @@ document.getElementById('generate').addEventListener('click', () => {
 
 const getPic = async (url, apiKey, city) => {
 
-    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&image_type=photo`;
+    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&image_type=photo&category=travel`;
     const response = await fetch(wholeURL);
     try{
         const data = await response.json();
@@ -139,6 +138,7 @@ const postWeather = async (url = '', data = {}) => {
 
         }
 }
+
 
 /***/ })
 

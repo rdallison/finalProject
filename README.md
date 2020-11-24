@@ -15,3 +15,5 @@ There are a few dependencies that were added to this project as well:
 Babel
 Sass
 Service Workers
+
+We have trip duration that has been added to the file. This functionality allows a user to select the date of travel and the return date. The travel time is then printed on the screen. 

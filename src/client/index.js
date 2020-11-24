@@ -1,10 +1,9 @@
 
 
-
 /* Global Variables */
 const baseURL = 'http://api.geonames.org/searchJSON?q=';
 const userName = 'rayshawndallison';
-document.getElementById('returnDate').setAttribute('minDate',`2020-11-11`);
+//document.getElementById('returnDate').setAttribute('minDate',`2020-11-11`);
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -62,7 +61,7 @@ document.getElementById('generate').addEventListener('click', () => {
 
 const getPic = async (url, apiKey, city) => {
 
-    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&image_type=photo`;
+    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&image_type=photo&category=travel`;
     const response = await fetch(wholeURL);
     try{
         const data = await response.json();

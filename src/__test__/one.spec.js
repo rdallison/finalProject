@@ -1,9 +1,13 @@
-const supertest = require('supertest');
+const request = require('supertest')
+const app = require('../server/server')
 
-describe("Testing the weather API", () => {
-    
-    it("tests base URL", async () => {
-        expect(200).toBe(200);
-    }); 
-
+describe('Get Endpoint', () => {
+  test("endpoint works", done => {
+    request(app)
+    .get('/')
+    .then(response => {
+        expect(response.status).toBe(200);
+        done();
+    });
+  });
 });

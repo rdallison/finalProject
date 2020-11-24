@@ -37,3 +37,5 @@ app.post('/', (req, res) => {
     console.log(newData);
 
 })
+
+module.exports = app;
