@@ -23,9 +23,16 @@ module.exports = {
             loader: "babel-loader"
             },
             {
-                test: /\.scss$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-                },
+              test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+          },
         ]
     },
     plugins : [
@@ -33,29 +40,32 @@ module.exports = {
           template: "./src/client/views/index.html",
           filename: "./index.html",
         }),
-        new WorkboxPlugin.GenerateSW({
-            // Do not precache images
-            exclude: [/\.(?:png|jpg|jpeg|svg)$/],
+        
+        // new WorkboxPlugin.GenerateSW({
+        //     // Do not precache images
+        //     exclude: [/\.(?:png|jpg|jpeg|svg)$/, /swagger-ui/],
+        //     clientsClaim:true,
+        //     skipWaiting:true,
       
-            // Define runtime caching rules.
-            runtimeCaching: [{
-              // Match any request that ends with .png, .jpg, .jpeg or .svg.
-              urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+        //     // Define runtime caching rules.
+        //     runtimeCaching: [{
+        //       // Match any request that ends with .png, .jpg, .jpeg or .svg.
+        //       urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
       
-              // Apply a cache-first strategy.
-              handler: 'CacheFirst',
+        //       // Apply a cache-first strategy.
+        //       handler: 'CacheFirst',
       
-              options: {
-                // Use a custom cache name.
-                cacheName: 'images',
+        //       options: {
+        //         // Use a custom cache name.
+        //         cacheName: 'images',
       
-                // Only cache 10 images.
-                expiration: {
-                  maxEntries: 10,
-                },
-              },
-            }],
-          }),
+        //         // Only cache 10 images.
+        //         expiration: {
+        //           maxEntries: 10,
+        //         },
+        //       },
+        //     }],
+        //   }),
     ],
     optimization: {
         minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],

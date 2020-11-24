@@ -12,7 +12,7 @@ body{
 
 input{
     &.hover{
-        color: $placeholder-color;
+        border: 2px solid $placeholder-color;
     }
 }
 
@@ -48,6 +48,10 @@ input{
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
     border: none;
+
+    &.hover{
+        color: 2px solid $placeholder-color;
+    }
 }
 
 button{
@@ -61,7 +65,7 @@ button{
     box-shadow: 2px 4px 5px #444;
 
     &.hover{
-        color: $placeholder-color
+        color: 2px solid $placeholder-color;
     }
 }
 h1{
