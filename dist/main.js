@@ -36,7 +36,8 @@ document.getElementById('generate').addEventListener('click', () => {
         .then(data => {
             console.log(data);
             const weather = data.data[0].temp;
-            const weatherString = `It is currently ${weather} celcius in ${data.data[0].city_name}`;
+            const weatherString = `
+            It is currently ${weather} celcius in ${data.data[0].city_name}`;
             const weatherP = document.createElement('p').innerText = weatherString;
             document.getElementById('title').append(weatherP);
             const pixurl = 'https://pixabay.com/api/?';
