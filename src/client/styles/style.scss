@@ -1,13 +1,43 @@
 
 $entry-backgroud: rgba(59, 74, 107, .4);
 $body-font: -apple-system, BlinkMacSystemFont, sans-serif;
-$placeholder-color: #f0d43a; 
+$placeholder-color: #049ff8; 
 $placeholder-font: 'Oswald', sans-serif;;
+$black-background: #000;
+$text-color: rgba(255, 255, 255, 0.788);
+$gray: rgba(255, 255, 255, 0.63);
 
 
 body{
     background: #fffff8;
     font-family: $body-font
+}
+
+#title{
+    size: 200%;
+    color: $text-color;
+    text-decoration: wavy;
+}
+
+#city:hover{
+    background-color: $gray;    
+}
+
+#returnDate:focus{
+    background-color: $gray;
+}
+
+#travelDate:focus{
+    background-color: $gray;
+}
+
+#generate{
+    background-color: $placeholder-color;
+    border: 2px solid white;
+
+    &:hover{
+        background-color: $gray;
+    }
 }
 
 input{
@@ -21,8 +51,8 @@ input{
     grid-auto-rows: minmax(150px, auto);
     /* grid-template-columns:  */
     height:100vh;
-    background: #d32b4a;
-    color: $placeholder-color;
+    background: $black-background;
+    color: $text-color;
     justify-content: center;
     grid-gap: 1em;
     font-size: 20px;
@@ -43,8 +73,8 @@ input{
     display:block;
     height: 60px;
     width: 320px;
-    background:#22b2da;
-    color: #f0d43a;
+    background: $placeholder-color;
+    color: $text-color;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
     border: none;
@@ -58,14 +88,14 @@ button{
     width: 400px;
     height: 100px;
     background: #3b4a6b;
-    color: $placeholder-color;
+    color: $text-color;
     font-size: 26px;
     font-family: $placeholder-font;
     border: none;
     box-shadow: 2px 4px 5px #444;
 
     &.hover{
-        color: 2px solid $placeholder-color;
+        color: 2px solid rgb(255,0,0);
     }
 }
 h1{
@@ -73,8 +103,8 @@ h1{
 }
 
 textarea{
-    background:#22b2da;
-    color: $placeholder-color;
+    background: $black-background;
+    color: $text-color;
     font-size: 20px;
     font-family: $placeholder-font;
 }
@@ -87,21 +117,35 @@ button:focus {
 }
 /* Style for Placeholder Text*/
 ::placeholder { /* Firefox, Chrome, Opera */ 
-    color: $placeholder-color;
+    color: $text-color;
     font-family: $placeholder-font;
 
 } 
   
 :-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: $placeholder-color;
+    color: $text-color;
     font-family: $placeholder-font;
 
 } 
   
 ::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: $placeholder-color;
+    color: $text-color;
     font-family: $placeholder-font;
 
 } 
 
+img{
+    width: auto;
+}
 
+
+@media screen and (max-width: 700px){
+    body{
+        width: auto;
+        font-size: 60%;
+        text-align: center;
+    }
+
+
+
+}

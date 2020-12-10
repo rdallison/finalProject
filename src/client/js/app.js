@@ -67,7 +67,7 @@ export const gen = () => {document.getElementById('generate').addEventListener('
 
 const getPic = async (url, apiKey, city) => {
 
-    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&category=travel`;
+    const wholeURL = `${url}key=${apiKey}&q=${encodeURIComponent(city)}&category=travel&category=places`;
     const response = await fetch(wholeURL);
     try{
         const data = await response.json();
